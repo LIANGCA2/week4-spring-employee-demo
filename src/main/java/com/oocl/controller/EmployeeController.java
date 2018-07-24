@@ -2,17 +2,12 @@ package com.oocl.controller;
 
 import com.oocl.model.Employee;
 import com.oocl.service.EmployeeService;
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class EmployeeController {
 
 
@@ -21,9 +16,30 @@ public class EmployeeController {
 
     @GetMapping("/employees")
     @ResponseBody
-    public List<Employee> findAllEmployee(Model model) {
-    List<Employee> employeeList=employeeService.findAllEmployee();
-        return employeeList;
+    public List<Employee> findAllEmployee() {
+        return employeeService.findAllEmployee();
     }
+    @PostMapping("/employees")
+    @ResponseBody
+    public Employee addEmployee(Employee employee){
+        Employee newEmployee = employeeService.addEmployee(employee);
+        return newEmployee;
+    }
+
+    @DeleteMapping("/employees/{id}")
+    @ResponseBody
+    public List<Employee> deleteEmployee(@PathVariable Integer id ){
+         employeeService.deleteEmployee(id);
+        return employeeService.deleteEmployee(id);
+    }
+
+    @PatchMapping("/employees/{id}")
+    @ResponseBody
+    public List<Employee> updateEmployee(@PathVariable Integer id,Employee employee){
+        return employeeService.updateEmployee(id,employee);
+    }
+
+
+
 
 }

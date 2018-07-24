@@ -21,7 +21,8 @@ public class EmployeeController {
     }
     @PostMapping("/employees")
     @ResponseBody
-    public Employee addEmployee(Employee employee){
+    public Employee addEmployee(@RequestBody Employee employee){
+        System.out.println(employee.getName());
         Employee newEmployee = employeeService.addEmployee(employee);
         return newEmployee;
     }
@@ -35,7 +36,7 @@ public class EmployeeController {
 
     @PatchMapping("/employees/{id}")
     @ResponseBody
-    public List<Employee> updateEmployee(@PathVariable Integer id,Employee employee){
+    public List<Employee> updateEmployee(@PathVariable Integer id,@RequestBody Employee employee){
         return employeeService.updateEmployee(id,employee);
     }
 
